@@ -123,6 +123,36 @@ dialog::backdrop{background:rgba(0,0,0,.4)}
 .callout b{display:block;margin-bottom:2px}
 ul.clean{margin:0;padding-left:18px}
 ul.clean li{margin:4px 0}
+
+/* map graphic */
+.teampick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.teampick button{font:inherit;font-size:.84rem;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:5px 11px;border-radius:999px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.teampick button b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:650}
+.teampick button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.teampick button[aria-pressed="true"] b{color:#fff}
+.teampick button.k[aria-pressed="false"]{border-color:var(--kings);color:var(--kings)}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.mapwrap{grid-template-columns:1fr}}
+#mjhlMap{width:100%;height:auto;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius)}
+#mjhlMap .lake{fill:color-mix(in srgb,var(--kings) 16%,var(--bg));stroke:none}
+#mjhlMap .border{stroke:var(--muted);stroke-dasharray:4 4;fill:none;opacity:.6}
+#mjhlMap .geo{fill:var(--muted);font-size:12px;opacity:.75;font-style:italic}
+#mjhlMap .flow{stroke:var(--accent);stroke-opacity:.35;fill:none}
+#mjhlMap .bub{fill:var(--accent);fill-opacity:.8;stroke:var(--panel);stroke-width:1.5;cursor:pointer;transition:r .4s}
+#mjhlMap .bub.sel{fill:var(--gold)}
+#mjhlMap .bubtxt{fill:#fff;font-size:11px;font-weight:700;text-anchor:middle;pointer-events:none}
+#mjhlMap .tlab{fill:var(--ink);font-size:11.5px;pointer-events:none;paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+#mjhlMap .team{fill:var(--kings);stroke:var(--panel);stroke-width:1.5}
+#mjhlMap .team.dim{fill:var(--muted);opacity:.45}
+#mjhlMap .teamlab{fill:var(--kings);font-size:12px;font-weight:700;paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+.mapsum{font-size:.95rem;margin-bottom:10px}
+.mapsum .big{font-size:1.6rem;font-weight:750;color:var(--accent)}
+.towngrp{margin:0 0 10px}
+.towngrp h4{margin:0 0 4px;font-size:.92rem;display:flex;justify-content:space-between}
+.towngrp h4 span{color:var(--muted);font-weight:500}
+.pchip{display:inline-block;font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;padding:2px 7px;margin:2px 3px 2px 0;cursor:pointer}
+.pchip:hover{border-color:var(--accent)}
+.pchip small{color:var(--muted)}
 footer{color:var(--muted);font-size:.82rem;text-align:center;padding:24px 20px 40px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
@@ -137,6 +167,7 @@ footer{color:var(--muted);font-size:.82rem;text-align:center;padding:24px 20px 4
       <button role="tab" data-tab="kings" aria-selected="false">Kings pipeline</button>
       <button role="tab" data-tab="beyond" aria-selected="false">Other teams &amp; leagues</button>
       <button role="tab" data-tab="explorer" aria-selected="false">Player explorer</button>
+      <button role="tab" data-tab="towns" aria-selected="false">Hometowns &amp; MJHL</button>
       <button role="tab" data-tab="corrections" aria-selected="false">Corrections</button>
       <button role="tab" data-tab="sources" aria-selected="false">Method &amp; sources</button>
     </nav>
@@ -238,6 +269,43 @@ footer{color:var(--muted);font-size:.82rem;text-align:center;padding:24px 20px 4
   <div class="tablewrap"><table id="xTable">
     <thead><tr><th data-sort="name">Player</th><th data-sort="yob">Born</th><th data-sort="home">Hometown</th><th data-sort="era">Rangers U18</th><th>Levels reached</th><th data-sort="status">Status</th></tr></thead>
     <tbody></tbody></table></div>
+</section>
+
+<!-- TOWNS -->
+<section class="tab" id="tab-towns" role="tabpanel">
+  <h2>Hometowns and MJHL teams</h2>
+  <p class="lead">Pick an MJHL team to see every former Ranger who played there, mapped by hometown. Click a town on the map to narrow the list.</p>
+  <div class="card mapcard">
+    <div class="teampick" id="teamPick" role="group" aria-label="MJHL team"></div>
+    <div class="mapwrap">
+      <svg id="mjhlMap" viewBox="0 0 600 610" role="img" aria-label="Map of western and southern Manitoba showing hometowns of former Rangers"></svg>
+      <div class="mapside">
+        <div class="mapsum" id="mapSum"></div>
+        <div id="mapList"></div>
+      </div>
+    </div>
+    <p class="note">Hometowns are approximate map points. Players whose hometown isn't in the sources are listed under "Hometown unknown". Swan Valley is plotted with Swan River.</p>
+  </div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card">
+      <h3>Alumni by hometown</h3>
+      <div class="chips" id="tFilter" style="margin:0 0 10px">
+        <button class="chip" data-f="mjhl" aria-pressed="true">Played in the MJHL</button>
+        <button class="chip" data-f="all" aria-pressed="false">All alumni</button>
+      </div>
+      <div class="bars" id="townBars"></div>
+      <p class="note" id="townNote"></p>
+    </div>
+    <div class="card">
+      <h3 id="townTitle">Choose a town</h3>
+      <div id="townList"><p class="note">Click a town on the left.</p></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>Hometown × MJHL team</h3>
+    <p class="note" style="margin-top:0">Number of players from each town who played for each MJHL team. A player is counted once per team.</p>
+    <div class="tablewrap"><table id="townGrid"></table></div>
+  </div>
 </section>
 
 <!-- CORRECTIONS -->
@@ -685,6 +753,113 @@ function renderExplorer(){
 $("#xReset").addEventListener("click",()=>goExplorer({}));
 $("#xTeamChip").addEventListener("click",()=>{xTeam=null;$("#xTeamChip").hidden=true;renderExplorer()});
 bindSort("xTable",renderExplorer);renderExplorer();
+
+
+/* ---------- TOWNS ---------- */
+const TEAMNORM={"Neepawa":"Neepawa Natives/Titans","Neepawa Natives":"Neepawa Natives/Titans","Neepawa Titans":"Neepawa Natives/Titans","OCN Blizzard":"OCN / N. Manitoba Blizzard"};
+const mjhlTeams=p=>{const out=[];if(p.playedKings&&p.status==="verified")out.push("Dauphin Kings");
+  p.teams.filter(t=>t[1]==="MJHL").forEach(t=>t[0].split(" / ").forEach(n=>{n=n.trim();n=TEAMNORM[n]||n;if(!out.includes(n))out.push(n)}));return out};
+const townOf=p=>p.home||"Unknown";
+const confirmed=P.filter(p=>p.status==="verified"||p.status==="partial");
+let tMode="mjhl",tSel=null;
+function townPool(){return confirmed.filter(p=>tMode==="all"||mjhlTeams(p).length)}
+function renderTowns(){
+  const pool=townPool(),c={};pool.forEach(p=>{const t=townOf(p);(c[t]=c[t]||[]).push(p)});
+  const items=Object.entries(c).sort((a,b)=>(a[0]==="Unknown")-(b[0]==="Unknown")||b[1].length-a[1].length);
+  const max=Math.max(...items.map(i=>i[1].length));
+  $("#townBars").innerHTML=items.map(([t,arr])=>`<div class="bar" data-t="${esc(t)}" role="button" tabindex="0"><span>${esc(t)}</span><span class="track"><span class="fill" style="width:${arr.length/max*100}%${t==="Unknown"?";background:var(--muted)":""}"></span></span><span class="v">${arr.length}</span></div>`).join("");
+  $$("#townBars .bar").forEach(b=>{const go=()=>showTown(b.dataset.t);b.addEventListener("click",go);b.addEventListener("keydown",e=>{if(e.key==="Enter")go()})});
+  const unk=(c.Unknown||[]).length;
+  $("#townNote").textContent=`${pool.length} players. ${unk?unk+" have no hometown in the sources; most are 1990s and 2000s players.":""}`;
+  renderGrid(pool);
+  if(tSel&&c[tSel])showTown(tSel);else{$("#townTitle").textContent="Choose a town";$("#townList").innerHTML='<p class="note">Click a town on the left.</p>'}
+}
+function showTown(t,team){
+  tSel=t;const list=townPool().filter(p=>townOf(p)===t&&(!team||mjhlTeams(p).includes(team))).sort((a,b)=>a.last.localeCompare(b.last));
+  $("#townTitle").textContent=`${t}${team?" — "+team:""} · ${list.length} player${list.length===1?"":"s"}`;
+  $("#townList").innerHTML=`<div class="tablewrap"><table><thead><tr><th>Player</th><th>Born</th><th>Rangers</th><th>MJHL teams</th><th>Other levels</th></tr></thead><tbody>${
+    list.map(p=>{const m=mjhlTeams(p);const other=levelTags({...p,playedKings:false,teams:p.teams.filter(x=>x[1]!=="MJHL")});
+      return `<tr data-p="${esc(p.name)}"><td><b>${esc(p.name)}</b></td><td>${p.yob||""}</td><td>${esc(p.era)}</td><td>${m.length?m.map(x=>`<span class="tag ${x==="Dauphin Kings"?"Kings":""}">${esc(x)}</span>`).join(""):'<span class="note">—</span>'}</td><td>${other}</td></tr>`}).join("")}</tbody></table></div>`;
+  $$("#townList tbody tr").forEach(r=>r.addEventListener("click",()=>openPlayer(r.dataset.p)));
+  $$("#townBars .bar").forEach(b=>b.style.background=b.dataset.t===t?"var(--accent-soft)":"");
+}
+function renderGrid(pool){
+  const tc={};pool.forEach(p=>mjhlTeams(p).forEach(t=>tc[t]=(tc[t]||0)+1));
+  const teams=Object.entries(tc).sort((a,b)=>b[1]-a[1]).map(e=>e[0]);
+  const towns={};pool.forEach(p=>{if(mjhlTeams(p).length)(towns[townOf(p)]=towns[townOf(p)]||[]).push(p)});
+  const rows=Object.entries(towns).sort((a,b)=>(a[0]==="Unknown")-(b[0]==="Unknown")||b[1].length-a[1].length);
+  const short=t=>t.replace(" Stampeders","").replace(" Wolverines","").replace(" Oil Capitals","").replace(" Pistons","").replace(" Flyers","").replace(" Terriers","").replace(" Natives/Titans","").replace(" Blades","").replace(" Steelers","").replace("Winnipeg ","Wpg ").replace("OCN / N. Manitoba Blizzard","OCN/NM Blizzard").replace("Dauphin Kings","Kings");
+  $("#townGrid").innerHTML=`<thead><tr><th>Hometown</th>${teams.map(t=>`<th title="${esc(t)}" style="text-align:center">${esc(short(t))}</th>`).join("")}<th style="text-align:center">Players</th></tr></thead><tbody>${
+    rows.map(([town,arr])=>`<tr style="cursor:default"><td><b>${esc(town)}</b></td>${teams.map(t=>{const n=arr.filter(p=>mjhlTeams(p).includes(t)).length;
+      return `<td style="text-align:center">${n?`<a href="#" data-town="${esc(town)}" data-team="${esc(t)}" style="font-weight:650">${n}</a>`:'<span class="note">·</span>'}</td>`}).join("")}<td style="text-align:center"><b>${arr.length}</b></td></tr>`).join("")}</tbody>`;
+  $$("#townGrid a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showTown(a.dataset.town,a.dataset.team);$("#townTitle").scrollIntoView({behavior:"smooth",block:"center"})}));
+}
+$$("#tFilter .chip").forEach(c=>c.addEventListener("click",()=>{tMode=c.dataset.f;$$("#tFilter .chip").forEach(x=>x.setAttribute("aria-pressed",String(x===c)));renderTowns()}));
+renderTowns();
+
+
+/* ---------- MJHL MAP ---------- */
+const GEO={"Dauphin":[51.15,-100.05],"Swan River":[52.10,-101.27],"Swan Valley":[52.10,-101.27],"Gilbert Plains":[51.15,-100.49],"Ste. Rose":[51.06,-99.53],"Russell":[50.78,-101.29],"Grandview":[51.17,-100.69],"Roblin":[51.23,-101.36],"The Pas":[53.82,-101.24],"McCreary":[50.77,-99.49],"Winnipegosis":[51.65,-99.94],"Portage la Prairie":[49.97,-98.29],"Rossburn":[50.67,-100.81],"Alonsa":[50.79,-99.0],"Winnipeg":[49.90,-97.14],"Virden":[49.85,-100.93],"Waterhen":[51.83,-99.53],"Altona":[49.10,-97.56],"Ebb and Flow":[51.23,-99.6],"Minitonas":[52.09,-101.03],"Eddystone":[51.10,-99.0]};
+const TEAMGEO={"Dauphin Kings":[51.15,-100.05,"Dauphin"],"Swan Valley Stampeders":[52.10,-101.27,"Swan River"],"OCN / N. Manitoba Blizzard":[53.82,-101.24,"The Pas"],"Winkler Flyers":[49.18,-97.94,"Winkler"],"Steinbach Pistons":[49.53,-96.68,"Steinbach"],"Portage Terriers":[49.97,-98.29,"Portage"],"Neepawa Natives/Titans":[50.23,-99.47,"Neepawa"],"Waywayseecappo Wolverines":[50.62,-101.15,"Waywayseecappo"],"Virden Oil Capitals":[49.85,-100.93,"Virden"],"Southeast Blades":[50.06,-96.52,"Southeast"],"Winnipeg Freeze":[49.90,-97.14,"Winnipeg"],"Winnipeg Blues":[49.90,-97.14,"Winnipeg"],"Winnipeg Saints":[49.90,-97.14,"Winnipeg"],"Winnipeg Monarchs":[49.90,-97.14,"Winnipeg"],"Selkirk Steelers":[50.14,-96.88,"Selkirk"],"Niverville Nighthawks":[49.60,-97.04,"Niverville"]};
+const LON0=-102.1,LON1=-96.2,LAT0=48.8,LAT1=54.1,MW=600,MH=610;
+const prj=(lat,lon)=>[(lon-LON0)/(LON1-LON0)*MW,(LAT1-lat)/(LAT1-LAT0)*MH];
+const poly=pts=>pts.map(([lon,lat])=>prj(lat,lon).map(v=>v.toFixed(1)).join(",")).join(" ");
+const LAKES=[
+ [[-96.85,50.35],[-96.45,50.55],[-96.6,51.1],[-96.2,51.6],[-96.5,52.3],[-97.2,53.0],[-97.9,53.75],[-98.6,53.5],[-99.2,53.2],[-98.4,52.6],[-97.6,52.0],[-97.2,51.4],[-97.1,50.8]],
+ [[-98.25,50.2],[-98.1,50.6],[-98.6,51.2],[-98.9,51.6],[-99.4,51.75],[-99.3,51.3],[-98.9,50.9],[-98.6,50.4]],
+ [[-99.6,51.6],[-99.9,51.9],[-100.1,52.4],[-100.3,52.9],[-100.6,53.1],[-100.4,52.6],[-100.0,52.0],[-99.8,51.6]],
+ [[-100.15,53.55],[-99.9,53.75],[-100.0,54.05],[-100.4,53.95],[-100.45,53.65]]];
+const mjhlPool=P.filter(p=>(p.status==="verified"||p.status==="partial")&&mjhlTeams(p).length);
+let mTeam=null,mTown=null;
+function teamCounts(){const c={};mjhlPool.forEach(p=>mjhlTeams(p).forEach(t=>c[t]=(c[t]||0)+1));return Object.entries(c).sort((a,b)=>b[1]-a[1])}
+function plotKey(t){return t==="Swan Valley"?"Swan River":t}
+function renderTeamPick(){
+  const tc=teamCounts();
+  $("#teamPick").innerHTML=`<button data-t="" aria-pressed="${!mTeam}">All MJHL teams <b>${mjhlPool.length}</b></button>`+tc.map(([t,n])=>`<button data-t="${esc(t)}" class="${t==="Dauphin Kings"?"k":""}" aria-pressed="${mTeam===t}">${esc(t)} <b>${n}</b></button>`).join("");
+  $$("#teamPick button").forEach(b=>b.addEventListener("click",()=>{mTeam=b.dataset.t||null;mTown=null;renderTeamPick();renderMap()}));
+}
+function renderMap(){
+  const players=mjhlPool.filter(p=>!mTeam||mjhlTeams(p).includes(mTeam));
+  const byTown={};players.forEach(p=>{const t=p.home?plotKey(p.home):"Hometown unknown";(byTown[t]=byTown[t]||[]).push(p)});
+  const svg=$("#mjhlMap");const sb=prj(49.0,-101.36),st=prj(54.25,-101.36),se=prj(49.0,LON1);
+  let g=`<rect x="0" y="0" width="${MW}" height="${MH}" fill="transparent"/>`;
+  g+=LAKES.map(l=>`<polygon class="lake" points="${poly(l)}"/>`).join("");
+  g+=`<polyline class="border" points="${st[0]},${st[1]} ${sb[0]},${sb[1]} ${se[0]},${se[1]}"/>`;
+  g+=`<text class="geo" x="${sb[0]-8}" y="40" text-anchor="end" transform="rotate(-90 ${sb[0]-8} 40)">SASKATCHEWAN</text>`;
+  g+=`<text class="geo" x="${(sb[0]+se[0])/2}" y="${sb[1]+20}" text-anchor="middle">NORTH DAKOTA</text>`;
+  const lw=prj(52.4,-97.6);g+=`<text class="geo" x="${lw[0]}" y="${lw[1]}" text-anchor="middle">Lake Winnipeg</text>`;
+  const lm=prj(50.95,-98.65);g+=`<text class="geo" x="${lm[0]+6}" y="${lm[1]}" >L. Manitoba</text>`;
+  /* team markers */
+  const teamPts={};Object.entries(TEAMGEO).forEach(([t,[la,lo,lab]])=>{const k=lab;(teamPts[k]=teamPts[k]||{pos:prj(la,lo),teams:[]}).teams.push(t)});
+  const selPt=mTeam&&TEAMGEO[mTeam]?prj(TEAMGEO[mTeam][0],TEAMGEO[mTeam][1]):null;
+  /* flows */
+  if(selPt)Object.entries(byTown).forEach(([t,arr])=>{if(!GEO[t])return;const [x,y]=prj(...GEO[t]);if(Math.hypot(x-selPt[0],y-selPt[1])<4)return;
+    const mx=(x+selPt[0])/2,my=(y+selPt[1])/2-Math.hypot(x-selPt[0],y-selPt[1])*0.18;
+    g+=`<path class="flow" d="M${x},${y} Q${mx},${my} ${selPt[0]},${selPt[1]}" stroke-width="${1+Math.sqrt(arr.length)*1.6}"/>`});
+  Object.entries(teamPts).forEach(([lab,o])=>{const active=!mTeam||o.teams.includes(mTeam);const [x,y]=o.pos;
+    g+=`<g><rect class="team ${active?"":"dim"}" x="${x-6}" y="${y-6}" width="12" height="12" transform="rotate(45 ${x} ${y})"><title>${esc(o.teams.join(", "))}</title></rect>`;
+    g+=`</g>`});
+  /* bubbles: circles largest-first, then numbers and labels on top */
+  const LABOFF={"Dauphin":[0,1,"m"],"Gilbert Plains":[-1,-1,"e"],"Grandview":[-1,0.2,"e"],"Ste. Rose":[1,0.1,"s"],"Ebb and Flow":[1,-0.6,"s"],"McCreary":[1,1.2,"s"],"Alonsa":[1,0.3,"s"],"Roblin":[-1,0,"e"],"Russell":[-1,0,"e"],"Rossburn":[1,0.5,"s"],"Swan River":[1,0,"s"],"Winnipegosis":[1,0,"s"],"Waterhen":[1,0,"s"],"Portage la Prairie":[-1,-0.9,"e"],"Winnipeg":[1,0.6,"s"]};
+  const maxN=Math.max(1,...Object.entries(byTown).filter(([t])=>GEO[t]).map(([,a])=>a.length));
+  const towns=Object.entries(byTown).filter(([t])=>GEO[t]).map(([t,arr])=>{const [x,y]=prj(...GEO[t]);return {t,arr,x,y,r:5+Math.sqrt(arr.length/maxN)*19}}).sort((a,b)=>b.r-a.r);
+  towns.forEach(o=>{g+=`<circle class="bub ${mTown===o.t?"sel":""}" data-t="${esc(o.t)}" cx="${o.x}" cy="${o.y}" r="${o.r.toFixed(1)}"><title>${esc(o.t)}: ${o.arr.length}</title></circle>`});
+  towns.forEach(o=>{if(o.r>10.5)g+=`<text class="bubtxt" x="${o.x}" y="${o.y+4}">${o.arr.length}</text>`;
+    const [dx,dy,an]=LABOFF[o.t]||[1,0,"s"];const lab=o.t+(o.r>10.5?"":" ("+o.arr.length+")");
+    let lx,ly,ta;if(an==="m"){lx=o.x;ly=o.y+o.r+13;ta="middle"}else{lx=o.x+dx*(o.r+4);ly=o.y+4+dy*(o.r+6);ta=an==="e"?"end":"start"}
+    g+=`<text class="tlab" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${ta}">${esc(lab)}</text>`});
+  if(selPt){const tx=Math.min(Math.max(selPt[0],90),MW-90);g+=`<text class="teamlab" x="${tx}" y="${selPt[1]-32}" text-anchor="middle">▼ ${esc(mTeam)}</text>`}
+  svg.innerHTML=g;
+  svg.querySelectorAll(".bub").forEach(el=>el.addEventListener("click",()=>{mTown=mTown===el.dataset.t?null:el.dataset.t;renderMap()}));
+  /* side list */
+  const known=players.filter(p=>p.home).length;
+  $("#mapSum").innerHTML=`<span class="big">${players.length}</span> former Rangers ${mTeam?`played for the <b>${esc(mTeam)}</b>`:"played in the MJHL"}${mTown?` · showing <b>${esc(mTown)}</b> <a href="#" id="clrTown">(show all towns)</a>`:""}<br><span class="note">${known} with a known hometown, from ${Object.keys(byTown).filter(t=>t!=="Hometown unknown").length} towns.</span>`;
+  const cl=$("#clrTown");if(cl)cl.addEventListener("click",e=>{e.preventDefault();mTown=null;renderMap()});
+  const groups=Object.entries(byTown).filter(([t])=>!mTown||t===mTown).sort((a,b)=>(a[0]==="Hometown unknown")-(b[0]==="Hometown unknown")||b[1].length-a[1].length);
+  $("#mapList").innerHTML=groups.map(([t,arr])=>`<div class="towngrp"><h4>${esc(t)} <span>${arr.length}</span></h4>${arr.sort((a,b)=>a.last.localeCompare(b.last)).map(p=>`<button class="pchip" data-p="${esc(p.name)}">${esc(p.name)} <small>${esc(p.era.replace(" (Parkland Stars)"," Stars"))}</small></button>`).join("")}</div>`).join("");
+  $$("#mapList .pchip").forEach(b=>b.addEventListener("click",()=>openPlayer(b.dataset.p)));
+}
+renderTeamPick();renderMap();
 
 /* ---------- CORRECTIONS ---------- */
 const corr=[
