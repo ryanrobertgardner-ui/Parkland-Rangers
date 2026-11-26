@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parkland Rangers U18 AAA — Alumni Pathways</title>
+<meta name="description" content="Verified record of Parkland Rangers U18 AAA alumni who advanced to the Dauphin Kings, other MJHL teams and higher levels of hockey.">
+<style>
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --ink:#17201b; --muted:#5d6a62; --line:#dfe4e0;
+  --accent:#1f5c3d; --accent-2:#2f7d55; --accent-soft:#e4efe8; --gold:#b8862b;
+  --kings:#1d4f91; --kings-soft:#e3ecf7; --warn:#9a5b00; --warn-soft:#fbf0dc;
+  --bad:#9b2c2c; --bad-soft:#f8e3e3; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+  --radius:10px; --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#111513;--panel:#191f1c;--ink:#e8eeea;--muted:#9aa8a0;--line:#2a332e;
+  --accent:#5cbf8a;--accent-2:#7fd3a5;--accent-soft:#1e2e25;--gold:#d7a64a;
+  --kings:#7fa9e6;--kings-soft:#1b2636;--warn:#e0a64a;--warn-soft:#2d2415;--bad:#e57d7d;--bad-soft:#2f1c1c;
+  --shadow:none}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+header.site{background:var(--accent);color:#fff;padding:28px 20px 0}
+@media (prefers-color-scheme:dark){header.site{background:#163a28}}
+.wrap{max-width:1140px;margin:0 auto}
+header.site h1{margin:0;font-size:1.7rem;letter-spacing:-.01em}
+header.site p.sub{margin:6px 0 18px;opacity:.88;max-width:760px}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{appearance:none;border:0;background:transparent;color:#fff;opacity:.8;font:inherit;font-weight:600;
+  padding:12px 16px;border-radius:8px 8px 0 0;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{background:var(--bg);color:var(--ink);opacity:1}
+nav.tabs button:hover{opacity:1}
+nav.tabs button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+main{padding:24px 20px 60px}
+section.tab{display:none}
+section.tab.active{display:block}
+h2{font-size:1.3rem;margin:0 0 4px}
+h3{font-size:1.02rem;margin:0 0 10px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:780px}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:22px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;text-align:left;font:inherit;color:inherit}
+.kpi:hover{border-color:var(--accent)}
+.kpi .n{font-size:2rem;font-weight:750;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .l{color:var(--muted);font-size:.86rem}
+.kpi.kings .n{color:var(--kings)}
+.kpi.acc .n{color:var(--accent)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.two{grid-template-columns:1fr 1fr}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.note{font-size:.84rem;color:var(--muted);margin-top:10px}
+/* bar chart */
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:170px 1fr 34px;align-items:center;gap:10px;font-size:.9rem;cursor:pointer;border-radius:6px;padding:2px 4px}
+.bar:hover{background:var(--accent-soft)}
+.bar .track{height:16px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--accent);border-radius:4px;transition:width .5s}
+.bar.k .fill{background:var(--kings)}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:650}
+@media (max-width:560px){.bar{grid-template-columns:110px 1fr 30px}}
+/* decade columns */
+.cols{display:flex;align-items:flex-end;gap:18px;height:190px;padding:10px 6px 0;border-bottom:1px solid var(--line)}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;cursor:pointer}
+.col .stick{width:100%;max-width:70px;background:var(--kings);border-radius:5px 5px 0 0;transition:height .5s;position:relative}
+.col:hover .stick{filter:brightness(1.12)}
+.col .cv{font-weight:700;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.collabels{display:flex;gap:18px;padding:6px 6px 0}
+.collabels span{flex:1;text-align:center;font-size:.85rem;color:var(--muted)}
+/* pathway */
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:stretch}
+@media (max-width:820px){.path{grid-template-columns:1fr 1fr}}
+.stage{border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:var(--panel);position:relative}
+.stage .sn{font-size:1.6rem;font-weight:750;color:var(--accent)}
+.stage .sl{font-size:.86rem;color:var(--muted)}
+.stage .st{font-weight:650;font-size:.92rem;margin-bottom:2px}
+/* table */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;align-items:center}
+.toolbar input[type=search],.toolbar select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);min-width:0}
+.toolbar input[type=search]{flex:1 1 220px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{font:inherit;font-size:.82rem;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:4px 10px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.count{color:var(--muted);font-size:.88rem;margin-left:auto}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--panel);font-weight:650;cursor:pointer;user-select:none;white-space:nowrap}
+th[data-sort]::after{content:" ↕";color:var(--muted);font-size:.8em}
+th.asc::after{content:" ↑";color:var(--ink)}th.desc::after{content:" ↓";color:var(--ink)}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--accent-soft)}
+tbody tr:last-child td{border-bottom:0}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;padding:1px 7px;border-radius:999px;margin:1px 3px 1px 0;white-space:nowrap;background:var(--accent-soft);color:var(--accent)}
+.tag.Kings{background:var(--kings-soft);color:var(--kings)}
+.tag.NHL{background:#f4e9d2;color:#7a5512}
+@media (prefers-color-scheme:dark){.tag.NHL{background:#2e2615;color:var(--gold)}}
+.st-verified{color:var(--accent)}.st-partial{color:var(--warn)}.st-notfound{color:var(--bad)}.st-signed{color:var(--muted)}
+.pill{font-size:.76rem;padding:1px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.pill.verified{background:var(--accent-soft);color:var(--accent)}
+.pill.partial{background:var(--warn-soft);color:var(--warn)}
+.pill.notfound{background:var(--bad-soft);color:var(--bad)}
+.pill.signed{background:var(--line);color:var(--muted)}
+/* league cards */
+.lcards{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.lcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.lcard:hover{border-color:var(--accent)}
+.lcard .ln{display:flex;justify-content:space-between;align-items:baseline}
+.lcard .ln b{font-size:1rem}
+.lcard .ln span{font-size:1.5rem;font-weight:750;color:var(--accent)}
+.lcard p{margin:6px 0 0;font-size:.84rem;color:var(--muted)}
+/* drawer */
+dialog{border:0;border-radius:14px;padding:0;max-width:560px;width:calc(100% - 32px);background:var(--panel);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.4)}
+.dlg{padding:22px}
+.dlg h3{font-size:1.25rem;margin:0}
+.dlg .meta{color:var(--muted);font-size:.9rem;margin:2px 0 14px}
+.dlg ol{padding-left:18px;margin:6px 0 12px}
+.dlg li{margin:3px 0}
+.dlg .close{float:right;font:inherit;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer}
+.callout{border-left:4px solid var(--gold);background:var(--panel);padding:14px 16px;border-radius:0 var(--radius) var(--radius) 0;margin:0 0 18px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.callout b{display:block;margin-bottom:2px}
+ul.clean{margin:0;padding-left:18px}
+ul.clean li{margin:4px 0}
+footer{color:var(--muted);font-size:.82rem;text-align:center;padding:24px 20px 40px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <h1>Parkland Rangers U18 AAA — Alumni Pathways</h1>
+    <p class="sub">Where Parkland Rangers players went next: the Dauphin Kings, the rest of the MJHL, the WHL, the SJHL, college and pro hockey. Every name is checked against a published source.</p>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="kings" aria-selected="false">Kings pipeline</button>
+      <button role="tab" data-tab="beyond" aria-selected="false">Other teams &amp; leagues</button>
+      <button role="tab" data-tab="explorer" aria-selected="false">Player explorer</button>
+      <button role="tab" data-tab="corrections" aria-selected="false">Corrections</button>
+      <button role="tab" data-tab="sources" aria-selected="false">Method &amp; sources</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- OVERVIEW -->
+<section class="tab active" id="tab-overview" role="tabpanel">
+  <h2>At a glance</h2>
+  <p class="lead">The Rangers program has played since 1990–91 (37 seasons) and began as the Parkland Stars in 1985–86. These are the confirmed minimums found so far. Click any number to see the players.</p>
+  <div class="grid kpis" id="kpis"></div>
+
+  <div class="grid two">
+    <div class="card">
+      <h3>Where verified alumni played after the Rangers</h3>
+      <div class="bars" id="levelBars"></div>
+      <p class="note">Players appear once in each level they reached, so the bars overlap. Click a bar to open those players in the explorer.</p>
+    </div>
+    <div class="card">
+      <h3>Most common MJHL destinations</h3>
+      <div class="bars" id="teamBars"></div>
+      <p class="note">Counts unique players per team. Swan Valley and Dauphin, the two MJHL teams inside the Parkland region, account for most of them.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>How far the pathway goes</h3>
+    <div class="path" id="pathway"></div>
+    <p class="note">Each stage counts verified alumni whose highest level reached falls in that stage or above.</p>
+  </div>
+</section>
+
+<!-- KINGS -->
+<section class="tab" id="tab-kings" role="tabpanel">
+  <h2>Rangers U18 → Dauphin Kings</h2>
+  <p class="lead">These players are confirmed to have played for both the Rangers U18 team and the Kings, including affiliate (call-up) games. The decade is the player's first Kings season.</p>
+
+  <div class="grid two">
+    <div class="card">
+      <h3>Confirmed Kings players by decade of arrival</h3>
+      <div class="cols" id="decadeCols"></div>
+      <div class="collabels" id="decadeLabels"></div>
+      <p class="note">The 1990s and 2000s are undercounted: those decades were checked only through the league yearbook's all-star and record lists. Click a bar to filter the table.</p>
+    </div>
+    <div class="card">
+      <div class="callout" style="margin:0 0 12px">
+        <b>2022 Turnbull Cup champions</b>
+        At least four Rangers alumni were regulars on the 2021–22 Kings: Jubenvill, Dube, Hrechka and Lacquette. Gibbs and Bodnarski were listed as affiliate players. Dube scored the Game 7 winner against Steinbach. The Kings later lost 2–0 to Pickering in the Centennial Cup semifinal.
+      </div>
+      <h3>Signed or drafted, no Kings games yet</h3>
+      <ul class="clean" id="kingsPending"></ul>
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:18px">
+    <input type="search" id="kSearch" placeholder="Search Kings players…" aria-label="Search Kings players">
+    <span class="chips" id="kDecadeChips" style="margin:0"></span>
+    <span class="count" id="kCount"></span>
+  </div>
+  <div class="tablewrap"><table id="kTable">
+    <thead><tr><th data-sort="name">Player</th><th data-sort="yob">Born</th><th data-sort="home">Hometown</th><th data-sort="era">Rangers U18</th><th data-sort="kings">Kings</th><th>Went on to</th></tr></thead>
+    <tbody></tbody></table></div>
+</section>
+
+<!-- BEYOND -->
+<section class="tab" id="tab-beyond" role="tabpanel">
+  <h2>Beyond the Kings</h2>
+  <p class="lead">These are former Rangers confirmed with teams other than the Kings: other MJHL clubs, other Junior A leagues, major junior, college and pro. Click a card to see the players.</p>
+  <div class="grid lcards" id="leagueCards"></div>
+  <div class="card" style="margin-top:16px">
+    <h3 id="beyondTitle">Choose a league above</h3>
+    <div id="beyondList"><p class="note">Nothing selected.</p></div>
+  </div>
+</section>
+
+<!-- EXPLORER -->
+<section class="tab" id="tab-explorer" role="tabpanel">
+  <h2>Player explorer</h2>
+  <p class="lead">Every player checked in this review, including the ones not yet confirmed. Search, filter and sort, then click a row for the full path and source.</p>
+  <div class="toolbar">
+    <input type="search" id="xSearch" placeholder="Search name, hometown or team…" aria-label="Search players">
+    <select id="xLevel" aria-label="Level"><option value="">All levels</option></select>
+    <select id="xStatus" aria-label="Status">
+      <option value="">All statuses</option>
+      <option value="verified">Verified</option>
+      <option value="partial">Partly confirmed</option>
+      <option value="notfound">Not found</option>
+      <option value="signed">Signed, no games yet</option>
+    </select>
+    <select id="xKings" aria-label="Kings">
+      <option value="">Kings: any</option><option value="y">Played for Kings</option><option value="n">Did not play for Kings</option>
+    </select>
+    <button class="chip" id="xReset" type="button">Reset</button>
+    <span class="count" id="xCount"></span>
+  </div>
+  <div class="tablewrap"><table id="xTable">
+    <thead><tr><th data-sort="name">Player</th><th data-sort="yob">Born</th><th data-sort="home">Hometown</th><th data-sort="era">Rangers U18</th><th>Levels reached</th><th data-sort="status">Status</th></tr></thead>
+    <tbody></tbody></table></div>
+</section>
+
+<!-- CORRECTIONS -->
+<section class="tab" id="tab-corrections" role="tabpanel">
+  <h2>What changed from the original report</h2>
+  <p class="lead">The original analysis was checked claim by claim. Here are the main corrections.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>Original report</th><th>Verified</th></tr></thead>
+    <tbody id="corrBody"></tbody></table></div>
+  <div class="grid two" style="margin-top:16px">
+    <div class="card"><h3>Players with wrong details</h3><ul class="clean">
+      <li><b>Daniel Chartrand:</b> first Kings games were in 2014–15, not 2015.</li>
+      <li><b>Luke Myhre:</b> signed with the Kings from Prairie Hockey Academy, not straight from the Rangers.</li>
+      <li><b>Colby Robak:</b> went from the Rangers to Brandon (WHL), not the Kings.</li>
+      <li><b>Landyn Garton:</b> a 2023–24 Ranger, but no Kings games found.</li>
+      <li><b>Spellings:</b> Tristin (not Tristan) Langan, Garrett Hrechka, Dustin Mozdzen, Bradyn Smelski, Havryil Simchuk.</li>
+    </ul></div>
+    <div class="card"><h3>What the Past Players page gets wrong</h3><ul class="clean">
+      <li><b>MJHL time left out:</b> Tristin Langan, Riley McKay, Mark Liwiski, Will Munro and Kyan Grouette all played in the MJHL.</li>
+      <li><b>MJHL time not confirmed:</b> no games found for Colby Robak, Shaquille Houle, Brad Marshall, Jaeger Lapointe, Brayden Kohlman, Cash Clarkson or Hayden Seib. Seib signed with the Kings but played in the SIJHL.</li>
+      <li><b>Confirmed MJHL experience:</b> 40 of 50 (80%), not 42 of 50 (84%).</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section class="tab" id="tab-sources" role="tabpanel">
+  <h2>Method &amp; sources</h2>
+  <div class="grid two">
+    <div class="card"><h3>How players were verified</h3><ul class="clean">
+      <li><b>Candidate names</b> came from the Rangers' Past Players page, the 2024–25 U13 AA camp letter alumni list, the 2023–24 Manitoba U18 AAA league yearbook (all-star teams, record lists, 2023–24 stats) and Dauphin Kings signing announcements.</li>
+      <li><b>Each player's path</b> was checked against player profiles (Elite Prospects, HockeyDB, Neutral Zone), league and team news releases, and Hockey Canada national-championship rosters.</li>
+      <li><b>Verified</b> means at least one source confirms the Rangers connection and the later team.</li>
+      <li><b>Partly confirmed</b> means one link is confirmed but not both.</li>
+      <li><b>Not found</b> means nothing turned up.</li>
+      <li><b>All totals are minimums.</b> A complete all-time count needs every Rangers season roster since 1985–86 checked name by name.</li>
+    </ul></div>
+    <div class="card"><h3>Key sources</h3><ul class="clean" id="srcList"></ul></div>
+  </div>
+  <p class="note">The player explorer links a source for each player.</p>
+</section>
+</main>
+
+<dialog id="dlg"><div class="dlg" id="dlgBody"></div></dialog>
+
+<footer>Compiled November 2026 from public sources. Corrections welcome. All figures are verified minimums, not all-time totals.</footer>
+
+<script>
+/* ---------- DATA ----------
+ Each record: [name, yob, hometown, rangersEra, kingsText, kingsStartYear, teams[[team, league]], status, note, sourceUrl]
+ league codes: MJHL WHL SJHL BCHL USHL NAHL AJHL SIJHL NOJHL JRB NCAA1 NCAA3 USPORTS NHL AHL ECHL SPHL EUR
+*/
+const EP="https://www.eliteprospects.com/player/";
+const RAW=[
+["Ryan Pulock",1994,"Grandview","c. 2009–10","",0,[["Brandon Wheat Kings","WHL"],["New York Islanders","NHL"]],"verified","Parkland all-star (league yearbook).","https://www.oursportscentral.com/services/releases/pulock-joins-u18-team/n-4383153"],
+["Connor Dewar",1999,"The Pas","2014–15","",0,[["Everett Silvertips","WHL"],["Minnesota Wild","NHL"],["Toronto Maple Leafs","NHL"],["Pittsburgh Penguins","NHL"]],"verified","","https://en.wikipedia.org/wiki/Connor_Dewar"],
+["Colby Robak",1990,"Gilbert Plains","2005–06","",0,[["Brandon Wheat Kings","WHL"],["Florida Panthers","NHL"],["Anaheim Ducks","NHL"],["San Antonio Rampage","AHL"]],"verified","47 NHL games.",EP+"17518/colby-robak/print"],
+["Jayce Hawryluk",1996,"Roblin","c. 2011–12","",0,[["Brandon Wheat Kings","WHL"],["Florida Panthers","NHL"]],"verified","Parkland all-star at the 2012 league all-star game (league yearbook).","https://en.wikipedia.org/wiki/Jayce_Hawryluk"],
+["Riese Gaber",1999,"Gilbert Plains","2014–16","2015–18",2015,[["Steinbach Pistons","MJHL"],["Dubuque Fighting Saints","USHL"],["University of North Dakota","NCAA1"],["Charlotte Checkers","AHL"]],"verified","Drafted by the Kings in 2014.",EP+"283845/riese-gaber/print"],
+["Riley McKay",1999,"Swan River","2014–15","",0,[["Swan Valley Stampeders","MJHL"],["Spokane Chiefs","WHL"],["Saskatoon Blades","WHL"],["Rockford / Laval / Henderson","AHL"],["Indy Fuel","ECHL"]],"verified","",EP+"283832/riley-mckay/print"],
+["Tristin Langan",1998,"Swan River","c. 2013–14","",0,[["Swan Valley Stampeders","MJHL"],["Moose Jaw Warriors","WHL"],["San Jose Barracuda","AHL"],["Stavanger / Glasgow","EUR"]],"verified","Past Players page spells it \"Tristan\".","https://www.mjhlhockey.ca/langan-has-fond-memories-of-his-time-in-swan-valley"],
+["Mark Liwiski",2001,"Dauphin","2016–17","",0,[["OCN Blizzard","MJHL"],["Everett / Kelowna","WHL"],["Wichita / Norfolk","ECHL"],["Manitoba Moose / Iowa Wild","AHL"]],"verified","","https://neutralzone.com/nhl/nhl-prospect-player/mark-liwiski-56902"],
+["Brody Claeys",1996,"Ste. Rose","—","",0,[["OCN Blizzard","MJHL"],["Alberni Valley Bulldogs","BCHL"],["Alaska-Anchorage","NCAA1"],["Several clubs","ECHL"],["Several clubs","SPHL"]],"verified","","https://goseawolves.com/roster.aspx?rp_id=2472"],
+["Mitch Carefoot",1985,"Dauphin","c. 2001–03","",0,[["Pro","ECHL"]],"verified","Parkland all-star (league yearbook).",EP+"13480/mitch-carefoot/print"],
+["Koby Morrisseau",2000,"Grandview","—","2019–21",2019,[["Portage Terriers","MJHL"],["Spokane Chiefs / Regina Pats","WHL"],["Fayetteville Marksmen","SPHL"]],"verified","Joined the Kings from Regina (WHL).","https://www.dauphinkings.com/koby-morrisseau-comes-home"],
+["Brayden Dube",2005,"Roblin","2020–21","2021–22",2021,[["Seattle / Prince Albert","WHL"],["Bemidji State","NCAA1"]],"verified","Scored the Game 7 winner for the 2022 Turnbull Cup.","https://neutralzone.com/player/Brayden-Dube-44891"],
+["Jayden Jubenvill",2003,"Gilbert Plains","2018–21","2021–22",2021,[["Dubuque Fighting Saints","USHL"],["North Dakota / Omaha","NCAA1"]],"verified","95 Rangers U18 games. 2022 MJHL all-rookie team.","https://omavs.com/sports/mens-ice-hockey/roster/jayden-jubenvill/16930"],
+["Tyler Jubenvill",1999,"Gilbert Plains","2014–15","",0,[["Winkler Flyers","MJHL"],["Cedar Rapids RoughRiders","USHL"],["Bemidji State","NCAA1"]],"verified","",EP+"283842/tyler-jubenvill/print"],
+["Shane Luke",null,"","2005–06","2007–11",2007,[["Providence College","NCAA1"]],"verified","Not on either Rangers alumni list.",EP+"39983/shane-luke/print"],
+["Jayson Argue",null,"Dauphin","2008–10","",0,[["Swan Valley Stampeders","MJHL"],["Nanaimo Clippers","BCHL"],["Bentley University","NCAA1"]],"verified","Later the Kings' goaltending coach.","https://www.mjhlhockey.ca/kings-continue-additions-to-staff"],
+["Brian Kostur",1975,"Gilbert Plains","1990–93","1995–96",1995,[["Prince Albert / Saskatoon / Lethbridge","WHL"]],"verified","102 points with the Kings in 1995–96.",EP+"465411/brian-kostur/print"],
+["Ryan Robson",1978,"Russell","1993–95","",0,[["Brandon Wheat Kings","WHL"],["Brandon University","USPORTS"]],"verified","Led the league with 109 points in 1994–95.",EP+"200387/ryan-robson/print"],
+["Jeff Church",1979,"Dauphin","1994–95","1998–2000",1998,[["Prince George / Kelowna / Lethbridge","WHL"],["University of Manitoba","USPORTS"]],"verified","153 WHL games. Went from the Rangers to the WHL, then back to the Kings, then four seasons with the University of Manitoba.",EP+"251452/jeff-church/print"],
+["Kyan Grouette",2005,"Dauphin","to 2021","2023–24",2023,[["Everett Silvertips","WHL"],["Virden Oil Capitals","MJHL"],["Portage Terriers","MJHL"]],"verified","","https://neutralzone.com/player/kyan-grouette-40600"],
+["Ryan Gower",2007,"McCreary","2023–24","2024–25",2024,[["Neepawa Titans","MJHL"],["Edmonton Oil Kings","WHL"]],"verified","",EP+"804399/ryan-gower/print"],
+["Will Munro",2005,"Swan River","2019–22","",0,[["Swan Valley Stampeders","MJHL"],["Kelowna Rockets","WHL"],["Melfort Mustangs","SJHL"],["Weyburn Red Wings","SJHL"]],"verified","2025 SJHL champion with Melfort.","https://eliteprospects.com/player/645744/will-munro/print"],
+["Dru Mushumanski",2006,"Rossburn","—","",0,[["Regina Pats","WHL"],["Waywayseecappo Wolverines","MJHL"],["Chilliwack Chiefs","BCHL"],["Melfort Mustangs","SJHL"]],"partial","Junior career confirmed. The Rangers link comes only from the camp letter; Elite Prospects shows Yellowhead at U15.","https://www.chilliwackchiefs.net/chilliwack-chiefs-add-dru-mushumanski-to-active-roster"],
+["Steven Arp",2004,"Swan River","2019–21","",0,[["Swan Valley Stampeders","MJHL"],["Medicine Hat / Winnipeg / Wenatchee","WHL"]],"verified","","https://www.oursportscentral.com/services/releases/ice-acquire-arp-from-medicine-hat/n-5883832"],
+["Lane Kirk",2000,"Swan River","2015–16","",0,[["Swan Valley Stampeders","MJHL"],["Prince Albert Raiders","WHL"],["Pueblo Bulls (USPHL)","JRB"]],"verified","","https://eliteprospects.com/player/283834/lane-kirk/print"],
+["Bo Eisner",2005,"Swan River","2019–23","",0,[["Melfort Mustangs","SJHL"],["Carleton University","USPORTS"]],"verified","Two SJHL titles with Melfort.","https://www.sjhl.ca/mustangs-eisner-commits-to-carleton-usports"],
+["Derek Falloon",1993,"Russell","c. 2008–10","2009–10",2009,[["Yorkton Terriers","SJHL"]],"verified","Scored the overtime winner for Yorkton's 2014 national title.","https://www.hockeycanada.ca/National-Championships/Men/National-Junior-A/2014/stats/game-summary?gameid=567"],
+["Tim Evason",null,"","1994–98","",0,[["Neepawa Natives","MJHL"],["Southeast Blades","MJHL"],["Saskatoon Rage","SJHL"]],"verified","","https://eliteprospects.com/player/263210/tim-evason/print"],
+["Daniel Chartrand",1997,"Dauphin","2013–15","2014–17",2014,[["OCN Blizzard","MJHL"],["Swan Valley Stampeders","MJHL"],["La Ronge Ice Wolves","SJHL"],["Northland College","NCAA3"]],"verified","First Kings games came in 2014–15, while still a Ranger.","https://www.mjhlhockey.ca/stampeders-chartrand-commits-to-northland-college"],
+["Andrew Liwiski",1999,"Dauphin","2014–17","2016–20",2016,[["Lloydminster Bobcats","AJHL"],["Northland College","NCAA3"]],"verified","","https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=201709"],
+["Trey Sauder",2003,"Swan River","2020–21","",0,[["Swan Valley Stampeders","MJHL"],["Steinbach Pistons","MJHL"],["Wisconsin-Superior","NCAA3"]],"verified","","https://www.mjhlhockey.ca/trey-sauder-commits-to-wisconsin-superior"],
+["Colton Robak",1993,"Gilbert Plains","c. 2009–11","",0,[["OCN Blizzard","MJHL"],["Northland College","NCAA3"]],"verified","Parkland all-star (league yearbook).",EP+"86754/colton-robak/print"],
+["Josh Tripp",1998,"Swan River","2014–15","",0,[["Swan Valley Stampeders","MJHL"],["Jamestown Rebels","NAHL"],["University of Manitoba","USPORTS"]],"verified","2019 MJHL MVP. Later coached the Rangers.","https://www.eliteprospects.com/staff/93161/joshua-tripp"],
+["Matthew Munro",2004,"Swan River","to 2022","",0,[["Swan Valley Stampeders","MJHL"],["Steinbach Pistons","MJHL"],["North Iowa Bulls","NAHL"]],"verified","Rangers captain.","https://eliteprospects.com/player/645746/matthew-munro/print"],
+["Taran Lacquette",1996,"Winnipegosis","2011–13","2014–16",2014,[["OCN Blizzard","MJHL"]],"verified","On the Kings' 2014 RBC Cup roster.",EP+"202948/taran-laquette/print"],
+["Dustin Mozdzen",1999,"Alonsa","2014–17","2017–18",2017,[["OCN Blizzard","MJHL"]],"verified","Past Players page spells it \"Mozden\".",EP+"283841/dustin-mozdzen/print"],
+["Hayden Lacquette",2003,"Dauphin","to 2021","2021–22",2021,[["Portage Terriers","MJHL"]],"verified","",EP+"483477/hayden-lacquette/print"],
+["Carter Zalischuk",2005,"Dauphin","—","2022–24",2022,[["Swan Valley Stampeders","MJHL"]],"verified","","https://eliteprospects.com/player/645743/carter-zalischuk/print"],
+["Darryl Luke",null,"","1991–94","1993–94",1993,[["Southeast Blades","MJHL"]],"verified","Parkland all-star (league yearbook).","https://www.eliteprospects.com/league/mjhl/stats/1994-1995"],
+["Rylan Gibbs",2004,"Dauphin","2019–22","2022–25",2022,[["Blind River Beavers","NOJHL"]],"verified","Affiliate player on the 2022 Centennial Cup roster.",EP+"571023/rylan-gibbs/print"],
+["Marco Bodnarski",2004,"Dauphin","—","2022–23",2022,[["Oceanside Generals (VIJHL)","JRB"]],"verified","Affiliate player on the 2022 Centennial Cup roster.",EP+"645745/marco-bodnarski/print"],
+["Jayce Legaarden",2004,"Grandview","2019–22","",0,[["Winkler Flyers","MJHL"]],"verified","2023–24 MJHL champion.",EP+"568965/jayce-legaarden/print"],
+["Jaden Townsend",1999,"Roblin","—","",0,[["Swan Valley Stampeders","MJHL"],["Winkler Flyers","MJHL"]],"verified","Swan Valley captain.",EP+"283838/jaden-townsend/print"],
+["Kurtis Luke",2000,"Ste. Rose","—","",0,[["Waywayseecappo Wolverines","MJHL"],["Neepawa Natives","MJHL"],["Winkler Flyers","MJHL"],["Winnipeg Freeze","MJHL"]],"verified","","https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=213132"],
+["Jackson Betcher",2001,"Swan River","2 seasons","",0,[["Swan Valley Stampeders","MJHL"],["Steinbach Pistons","MJHL"]],"verified","","https://www.steinbachpistons.ca/pistons-thank-graduating-player-jackson-betcher"],
+["Cody Ellingson",1996,"Swan River","2011–14","",0,[["Swan Valley Stampeders","MJHL"]],"verified","Swan Valley captain.","https://eliteprospects.com/player/202951/cody-ellingson/print"],
+["Chandler Ashcroft",1996,"Swan River","2012–13","",0,[["Swan Valley Stampeders","MJHL"],["Carrot River Outback Thunder (PJHL)","JRB"]],"verified","",EP+"253381/chandler-ashcroft/print"],
+["Carter Cockburn",2001,"Swan River","—","",0,[["Swan Valley Stampeders","MJHL"]],"verified","Swan Valley captain, 2021–22.",EP+"351250/carter-cockburn/print"],
+["Andrew Pidskalny",2006,"Swan River","2022–24","",0,[["Swan Valley Stampeders","MJHL"]],"verified","","https://eliteprospects.com/player/715499/andrew-pidskalny/print"],
+["Trace Langan",2008,"Swan River","2022–25","",0,[["Swan Valley Stampeders","MJHL"]],"verified","",EP+"885332/trace-langan/print"],
+["Darian Boychuk",null,"Swan Valley","2015–18","",0,[["Swan Valley Stampeders","MJHL"]],"verified","One MJHL game.",EP+"351243/darian-boychuk/print"],
+["Branden Storey",null,"","2013–16","",0,[["OCN Blizzard","MJHL"]],"verified","","https://eliteprospects.com/player/247984/branden-storey/print"],
+["Cole Haukaas",2000,"The Pas","—","",0,[["OCN Blizzard","MJHL"]],"partial","MJHL career confirmed. The Rangers link comes only from the Rangers' own lists.",EP+"293493/cole-haukaas/print"],
+["Maddox Shindle",2006,"Portage la Prairie","2023–24","",0,[["Virden Oil Capitals","MJHL"]],"verified","",EP+"718998/maddox-shindle/print"],
+["Hayden Seib",2006,"Russell","2021–24","Signed 2024 (no games)",0,[["Dryden / Ironwood / Kenora","SIJHL"]],"verified","Signed with the Kings for 2024–25 but played in the SIJHL.","https://eliteprospects.com/player/715507/hayden-seib/print"],
+["Cash Clarkson",2006,"Winnipegosis","2023–24","",0,[["Norway House North Stars (KJHL)","JRB"]],"verified","Listed as MJHL on the Past Players page, but no MJHL games found.","https://www.eliteprospects.com/league/kjhl/stats/2025-2026"],
+["Mackenzie Menard",null,"","2019–20","",0,[["St. Boniface Riels (MMJHL)","JRB"]],"verified","",EP+"505810/mackenzie-menard/print"],
+/* Kings-only */
+["Garrett Hrechka",2002,"Dauphin","2017–20","2019–23",2019,[],"verified","132 Rangers U18 games. 2022 Turnbull Cup.","https://eliteprospects.com/player/408631/garrett-hrechka/print"],
+["Quinten Fisk",2008,"Dauphin","2023–25","2024–present",2024,[],"verified","","https://eliteprospects.com/player/885339/quinten-fisk/print"],
+["Sam Swanton",2007,"Dauphin","2022–25","2023–present",2023,[],"verified","Missing from the Past Players page.","https://www.dauphinkings.com/chapter-20-sam-swanton"],
+["Luke Myhre",2007,"Dauphin","2023–24","2024–present",2024,[],"verified","Signed his 2025–26 deal from Prairie Hockey Academy.","https://www.dauphinkings.com/dauphins-myhre-set-to-join-kings"],
+["Madden Murray",2005,"Dauphin","2021–23","2022–25",2022,[],"verified","125 Kings games. Committed to the University of Victoria.","https://www.dauphinkings.com/madden-murray-heading-west"],
+["Havryil Simchuk",2006,"Kyiv, Ukraine","—","Affiliate games",2022,[],"verified","","https://wcmbnews.com/dauphin-herald-news/itemlist/user/611-dougzywina?start=390"],
+["Bradyn Smelski",1999,"Dauphin","to 2017","2017–19",2017,[],"verified","Rangers captain, 2016–17.","https://www.dauphinkings.com/kings-announce-first-signing-of-summer"],
+["Matthew Greening",1997,"Dauphin","2012–15","2015–17",2015,[],"verified","MJHL Rookie of the Month.","https://www.dauphinkings.com/greening-named-mjhl-rookie-of-the-month"],
+["Tyler Derkach",1997,"Dauphin","to 2015","1 GP",2014,[],"verified","Rangers co-captain.","https://www.dauphinkings.com/local-lion-part-12"],
+["Keaton Ziprick",2003,"Russell","2018–21","2019–20, 2021–22",2019,[],"verified","",EP+"483487/keaton-ziprick/print"],
+["Zach Grouette",2001,"Dauphin","2016–19","Affiliate goaltender",2019,[],"verified","","https://www.dauphinkings.com/youthful-kings-take-down-stampeders"],
+["Evan Gullett",null,"Gilbert Plains","2015–18","2018–19",2018,[],"verified","","https://www.dauphinkings.com/gullett-hopfner-commit-to-kings"],
+["Reece Hopfner",null,"Ste. Rose","to 2018","2016–19",2016,[],"verified","Rangers captain.","https://www.dauphinkings.com/gullett-hopfner-commit-to-kings"],
+["Luke Stokotelny",null,"","c. 2005–06","2006–09",2006,[],"verified","Parkland all-star (league yearbook).","https://www.hockeycanada.ca/en-ca/News/2010-RBC-015-en"],
+["Brent Wishart",null,"","c. 1993–94","1994–95",1994,[],"verified","Parkland all-star (league yearbook).","https://www.eliteprospects.com/league/mjhl/stats/1994-1995?nation=CAN"],
+["Scott McCallum",null,"","1994–95","1 GP 1994–95",1994,[],"verified","",EP+"83677/scott-mccallum/print"],
+["Tyler Carefoot",null,"","1992–95","3 GP 1993–94",1993,[],"verified","Later head coach of the Rangers.",EP+"155766/tyler-carefoot/print"],
+["Neil Andruschak",null,"","c. 1992–93","1993–95",1993,[],"verified","Parkland all-star (league yearbook).","https://www.eliteprospects.com/league/mjhl/stats/1993-1994?page=3"],
+/* partial / not found / signed */
+["Piet Mierau",null,"","—","1 GP 2024–25",2024,[],"partial","Kings games confirmed; no Rangers U18 season found.","https://www.eliteprospects.com/league/mjhl/stats/2024-2025?page=5"],
+["Brad Marshall",1999,"Ste. Rose","—","",0,[],"partial","Drafted first overall by Neepawa (MJHL), but no MJHL games found.","https://www.mywestman.ca/sports/2659-mjhl-bantam-draft-natives-select-marshall-first-overall.html"],
+["Jaeger Lapointe",2001,"Ste. Rose","2016–19","",0,[],"partial","133 Rangers U18 games (league yearbook), but no MJHL games found.",""],
+["Brett Evans",1998,"Grandview","2013–15","",0,[],"partial","MJHL goaltender 2015–17, but no source names the team.",EP+"247994/brett-evans/print"],
+["Kevin Falloon",1988,"Russell","c. 2003–05","",0,[],"partial","MJHL and university games listed, but no source names the teams.","https://eliteprospects.com/player/39984/kevin-falloon/print"],
+["Landyn Garton",null,"","2023–24","",0,[],"partial","40 Rangers games in 2023–24, but no Kings games found.",""],
+["Shaquille Houle",1996,"Ebb and Flow","—","",0,[],"notfound","Listed as MJHL by the Rangers, but nothing found.",""],
+["Brayden Kohlman",2003,"McCreary","—","",0,[],"notfound","Listed as MJHL by the Rangers, but nothing found.",""],
+["Tavyn Boychuk",2007,"Swan River","2023–24","",0,[],"notfound","No junior games found.",""],
+["Cam Sarna",2007,"Portage la Prairie","2023–24","",0,[],"notfound","Kings draft pick, but no games found.",""],
+["Noah Smigelsky",null,"Dauphin","2024–25","Signed (no games yet)",0,[],"signed","","https://www.dauphinkings.com/kings-announce-mass-signing-of-players"],
+["Forrest Karlson",null,"Dauphin","2024–25","Signed (no games yet)",0,[],"signed","","https://www.dauphinkings.com/kings-announce-mass-signing-of-players"],
+["Brayden Budolowski",null,"Dauphin","2024–25","Signed (no games yet)",0,[],"signed","","https://www.dauphinkings.com/kings-announce-mass-signing-of-players"]
+];
+
+const LEVELS={
+  Kings:{label:"Dauphin Kings",group:"Kings"},
+  MJHL:{label:"Other MJHL teams",group:"MJHL"},
+  WHL:{label:"WHL (major junior)",group:"WHL"},
+  SJHL:{label:"SJHL",group:"SJHL"},
+  JRA:{label:"Other Junior A",group:"JRA"},
+  JRB:{label:"Junior B",group:"JRB"},
+  NCAA1:{label:"NCAA Division I",group:"NCAA1"},
+  NCAA3:{label:"NCAA Division III",group:"NCAA3"},
+  USPORTS:{label:"U Sports",group:"USPORTS"},
+  NHL:{label:"NHL",group:"NHL"},
+  PRO:{label:"Other pro (AHL/ECHL/SPHL/Europe)",group:"PRO"}
+};
+const JRA=["BCHL","USHL","NAHL","AJHL","SIJHL","NOJHL"], PRO=["AHL","ECHL","SPHL","EUR"];
+const LNAME={MJHL:"MJHL",WHL:"WHL",SJHL:"SJHL",BCHL:"BCHL",USHL:"USHL",NAHL:"NAHL",AJHL:"AJHL",SIJHL:"SIJHL",NOJHL:"NOJHL",JRB:"Jr B",NCAA1:"NCAA D1",NCAA3:"NCAA D3",USPORTS:"U Sports",NHL:"NHL",AHL:"AHL",ECHL:"ECHL",SPHL:"SPHL",EUR:"Europe"};
+const lvlOf=l=>JRA.includes(l)?"JRA":PRO.includes(l)?"PRO":l;
+
+const P=RAW.map(r=>{
+  const [name,yob,home,era,kings,kStart,teams,status,note,src]=r;
+  const playedKings = !!kStart && status!=="signed";
+  const levels=new Set(teams.map(t=>lvlOf(t[1])));
+  if(playedKings) levels.add("Kings");
+  return {name,yob,home,era,kings,kStart,teams,status,note,src,playedKings,levels,
+          last:name.split(" ").slice(-1)[0]};
+});
+const verified=P.filter(p=>p.status==="verified"||(p.status==="partial"&&p.teams.length)); // career confirmed
+const has=(p,l)=>p.levels.has(l);
+const kingsPlayers=P.filter(p=>p.playedKings && p.status==="verified");
+const otherPlayers=P.filter(p=>p.teams.length && (p.status==="verified"||p.status==="partial"));
+const uniqueVerified=new Set([...kingsPlayers,...otherPlayers].map(p=>p.name));
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const levelTags=p=>{
+  const order=["Kings","MJHL","WHL","SJHL","JRA","JRB","NCAA1","NCAA3","USPORTS","PRO","NHL"];
+  const leagues=[...new Set(p.teams.map(t=>t[1]))];
+  let out=p.playedKings?'<span class="tag Kings">Kings</span>':"";
+  leagues.sort((a,b)=>order.indexOf(lvlOf(a))-order.indexOf(lvlOf(b))).forEach(l=>out+=`<span class="tag ${l}">${LNAME[l]||l}</span>`);
+  return out||'<span class="note">—</span>';
+};
+const statusLabel={verified:"Verified",partial:"Partly confirmed",notfound:"Not found",signed:"Signed, no games yet"};
+
+/* ---------- tabs ---------- */
+function show(tab){
+  $$("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab));
+  $$("section.tab").forEach(s=>s.classList.toggle("active",s.id==="tab-"+tab));
+  if(location.hash!=="#"+tab) history.replaceState(null,"","#"+tab);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$$("nav.tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab)));
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if($("#tab-"+h))show(h)});
+
+/* ---------- player dialog ---------- */
+function openPlayer(name){
+  const p=P.find(x=>x.name===name); if(!p) return;
+  const rows=[];
+  if(p.era && p.era!=="—") rows.push(`<li>Parkland Rangers U18 — ${esc(p.era)}</li>`); else rows.push(`<li>Parkland Rangers U18</li>`);
+  if(p.kings) rows.push(`<li>Dauphin Kings (MJHL) — ${esc(p.kings)}</li>`);
+  p.teams.forEach(t=>rows.push(`<li>${esc(t[0])} <span class="tag ${t[1]}">${LNAME[t[1]]||t[1]}</span></li>`));
+  $("#dlgBody").innerHTML=`<button class="close" onclick="dlg.close()">Close</button>
+   <h3>${esc(p.name)}</h3>
+   <div class="meta">${[p.yob?("Born "+p.yob):"",p.home].filter(Boolean).map(esc).join(" · ")||"&nbsp;"}
+   &nbsp;<span class="pill ${p.status}">${statusLabel[p.status]}</span></div>
+   <b>Path</b><ol>${rows.join("")}</ol>
+   ${p.note?`<p>${esc(p.note)}</p>`:""}
+   ${p.src?`<p class="note">Source: <a href="${esc(p.src)}" target="_blank" rel="noopener">${esc(new URL(p.src).hostname.replace("www.",""))}</a></p>`:`<p class="note">Source: league yearbook or Rangers alumni list.</p>`}`;
+  dlg.showModal();
+}
+const dlg=$("#dlg"); dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+/* ---------- explorer state ---------- */
+function goExplorer({level="",kings="",status="",q=""}={}){
+  $("#xLevel").value=level;$("#xKings").value=kings;$("#xStatus").value=status;$("#xSearch").value=q;
+  renderExplorer();show("explorer");
+}
+
+/* ---------- OVERVIEW ---------- */
+const kpis=[
+  {n:kingsPlayers.length,l:"Rangers U18 → Dauphin Kings",cls:"kings",go:()=>show("kings")},
+  {n:otherPlayers.length,l:"With teams other than the Kings",cls:"acc",go:()=>show("beyond")},
+  {n:uniqueVerified.size,l:"Unique alumni with confirmed paths",cls:"",go:()=>goExplorer({status:""})},
+  {n:otherPlayers.filter(p=>has(p,"MJHL")).length,l:"Played for other MJHL teams",cls:"acc",go:()=>goExplorer({level:"MJHL"})},
+  {n:P.filter(p=>has(p,"WHL")).length,l:"Reached the WHL",cls:"",go:()=>goExplorer({level:"WHL"})},
+  {n:P.filter(p=>has(p,"NCAA1")||has(p,"NCAA3")).length,l:"Played NCAA hockey",cls:"",go:()=>goExplorer({level:"NCAA"})},
+  {n:P.filter(p=>has(p,"NHL")).length,l:"Reached the NHL",cls:"",go:()=>goExplorer({level:"NHL"})}
+];
+$("#kpis").innerHTML=kpis.map((k,i)=>`<button class="kpi ${k.cls}" data-i="${i}"><div class="n">${k.n}</div><div class="l">${k.l}</div></button>`).join("");
+$$("#kpis .kpi").forEach(b=>b.addEventListener("click",()=>kpis[b.dataset.i].go()));
+
+function bars(el,items,max){
+  el.innerHTML=items.map(it=>`<div class="bar ${it.k?"k":""}" data-go='${JSON.stringify(it.go||{})}' role="button" tabindex="0">
+    <span>${esc(it.label)}</span><span class="track"><span class="fill" style="width:0"></span></span><span class="v">${it.n}</span></div>`).join("");
+  requestAnimationFrame(()=>[...el.querySelectorAll(".fill")].forEach((f,i)=>f.style.width=(items[i].n/max*100)+"%"));
+  [...el.querySelectorAll(".bar")].forEach(b=>{
+    const go=()=>{const g=JSON.parse(b.dataset.go);if(g.tab)show(g.tab);else goExplorer(g)};
+    b.addEventListener("click",go);b.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
+  });
+}
+const levelItems=[
+  {label:"Dauphin Kings",n:kingsPlayers.length,k:1,go:{tab:"kings"}},
+  {label:"Other MJHL teams",n:P.filter(p=>has(p,"MJHL")).length,go:{level:"MJHL"}},
+  {label:"WHL",n:P.filter(p=>has(p,"WHL")).length,go:{level:"WHL"}},
+  {label:"SJHL",n:P.filter(p=>has(p,"SJHL")).length,go:{level:"SJHL"}},
+  {label:"Other Junior A",n:P.filter(p=>has(p,"JRA")).length,go:{level:"JRA"}},
+  {label:"Junior B",n:P.filter(p=>has(p,"JRB")).length,go:{level:"JRB"}},
+  {label:"NCAA (D1 + D3)",n:P.filter(p=>has(p,"NCAA1")||has(p,"NCAA3")).length,go:{level:"NCAA"}},
+  {label:"U Sports",n:P.filter(p=>has(p,"USPORTS")).length,go:{level:"USPORTS"}},
+  {label:"Pro (AHL/ECHL/SPHL/Eur.)",n:P.filter(p=>has(p,"PRO")).length,go:{level:"PRO"}},
+  {label:"NHL",n:P.filter(p=>has(p,"NHL")).length,go:{level:"NHL"}}
+];
+bars($("#levelBars"),levelItems,Math.max(...levelItems.map(i=>i.n)));
+
+const teamCount={};
+P.forEach(p=>{const seen=new Set();p.teams.filter(t=>t[1]==="MJHL").forEach(t=>{
+  t[0].split(" / ").forEach(n=>{const key=n.replace(/ (Natives|Titans)$/,"").trim();
+    const norm={ "Neepawa":"Neepawa Natives/Titans","OCN Blizzard":"OCN / N. Manitoba Blizzard"}[key]||n;
+    if(!seen.has(norm)){seen.add(norm);(teamCount[norm]=teamCount[norm]||[]).push(p.name)}});
+})});
+const teamItems=[{label:"Dauphin Kings",n:kingsPlayers.length,k:1,go:{tab:"kings"}}]
+ .concat(Object.entries(teamCount).sort((a,b)=>b[1].length-a[1].length).slice(0,9)
+ .map(([t,arr])=>({label:t,n:arr.length,go:{q:t.split(" ")[0]}})));
+bars($("#teamBars"),teamItems,Math.max(...teamItems.map(i=>i.n)));
+
+const stages=[
+  {t:"Junior A or higher",f:p=>p.playedKings||[...p.levels].some(l=>["MJHL","WHL","SJHL","JRA"].includes(l)),s:"Kings, other MJHL, SJHL, BCHL, USHL and more"},
+  {t:"Major junior / college",f:p=>["WHL","NCAA1","NCAA3","USPORTS"].some(l=>has(p,l))||has(p,"PRO")||has(p,"NHL"),s:"WHL, NCAA or U Sports"},
+  {t:"Professional",f:p=>has(p,"PRO")||has(p,"NHL"),s:"AHL, ECHL, SPHL, Europe or NHL"},
+  {t:"NHL",f:p=>has(p,"NHL"),s:"Pulock, Dewar, Robak, Hawryluk"}
+];
+$("#pathway").innerHTML=stages.map(s=>`<div class="stage"><div class="st">${s.t}</div><div class="sn">${P.filter(p=>(p.status==="verified"||p.status==="partial")&&s.f(p)).length}</div><div class="sl">${s.s}</div></div>`).join("");
+
+/* ---------- KINGS ---------- */
+const decades=[["1990s",1990,1999],["2000s",2000,2009],["2010s",2010,2019],["2020s",2020,2029]];
+const dCounts=decades.map(d=>kingsPlayers.filter(p=>p.kStart>=d[1]&&p.kStart<=d[2]).length);
+const dMax=Math.max(...dCounts);
+$("#decadeCols").innerHTML=decades.map((d,i)=>`<div class="col" data-d="${i}" role="button" tabindex="0" aria-label="${d[0]}: ${dCounts[i]} players"><div class="cv">${dCounts[i]}</div><div class="stick" style="height:0"></div></div>`).join("");
+$("#decadeLabels").innerHTML=decades.map(d=>`<span>${d[0]}</span>`).join("");
+requestAnimationFrame(()=>$$("#decadeCols .stick").forEach((s,i)=>s.style.height=(dCounts[i]/dMax*150)+"px"));
+let kDecade=null;
+$("#kDecadeChips").innerHTML=`<button class="chip" data-d="" aria-pressed="true">All</button>`+decades.map((d,i)=>`<button class="chip" data-d="${i}" aria-pressed="false">${d[0]}</button>`).join("");
+const setDecade=i=>{kDecade=(i===""||i===null)?null:+i;$$("#kDecadeChips .chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.d===(kDecade===null?"":String(kDecade)))));renderKings()};
+$$("#kDecadeChips .chip").forEach(c=>c.addEventListener("click",()=>setDecade(c.dataset.d)));
+$$("#decadeCols .col").forEach(c=>{c.addEventListener("click",()=>setDecade(c.dataset.d));c.addEventListener("keydown",e=>{if(e.key==="Enter")setDecade(c.dataset.d)})});
+$("#kingsPending").innerHTML=P.filter(p=>p.status==="signed"||(p.kings&&!p.playedKings)).map(p=>`<li><a href="#" data-p="${esc(p.name)}">${esc(p.name)}</a> — ${esc(p.kings)}</li>`).join("")+
+  `<li class="note">Landyn Garton was named in the original report, but no Kings games were found.</li>`;
+$$("#kingsPending a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openPlayer(a.dataset.p)}));
+
+const sortState={kTable:{key:"kStart",dir:-1},xTable:{key:"name",dir:1}};
+function sorter(tid){
+  const {key,dir}=sortState[tid];
+  return (a,b)=>{
+    const g=p=>key==="name"?p.last+p.name:key==="kings"?p.kStart:key==="era"?(parseInt((p.era.match(/\d{4}/)||[0])[0])):key==="status"?["verified","partial","signed","notfound"].indexOf(p.status):(p[key]??"");
+    const A=g(a),B=g(b);return (A>B?1:A<B?-1:0)*dir;
+  };
+}
+function bindSort(tid,render){
+  $$("#"+tid+" th[data-sort]").forEach(th=>th.addEventListener("click",()=>{
+    const k=th.dataset.sort==="kings"?"kStart":th.dataset.sort;const s=sortState[tid];
+    s.dir=s.key===k?-s.dir:1;s.key=k;
+    $$("#"+tid+" th").forEach(t=>t.classList.remove("asc","desc"));th.classList.add(s.dir>0?"asc":"desc");render();
+  }));
+}
+function renderKings(){
+  const q=$("#kSearch").value.trim().toLowerCase();
+  let rows=kingsPlayers.filter(p=>(!q||(p.name+" "+p.home).toLowerCase().includes(q))&&(kDecade===null||(p.kStart>=decades[kDecade][1]&&p.kStart<=decades[kDecade][2])));
+  rows.sort(sorter("kTable"));
+  $("#kTable tbody").innerHTML=rows.map(p=>`<tr data-p="${esc(p.name)}"><td><b>${esc(p.name)}</b></td><td>${p.yob||""}</td><td>${esc(p.home)}</td><td>${esc(p.era)}</td><td>${esc(p.kings)}</td><td>${p.teams.length?levelTags({...p,playedKings:false}):'<span class="note">Kings only so far</span>'}</td></tr>`).join("");
+  $("#kCount").textContent=`${rows.length} of ${kingsPlayers.length} players`;
+  $$("#kTable tbody tr").forEach(r=>r.addEventListener("click",()=>openPlayer(r.dataset.p)));
+}
+$("#kSearch").addEventListener("input",renderKings);bindSort("kTable",renderKings);renderKings();
+
+/* ---------- BEYOND ---------- */
+const leagueDefs=[
+  {id:"MJHL",t:"Other MJHL teams",d:"Swan Valley, OCN/Northern Manitoba, Steinbach, Winkler, Portage, Neepawa, Virden and more",f:p=>has(p,"MJHL")},
+  {id:"WHL",t:"WHL",d:"Major junior: Brandon, Everett, Kelowna, Regina, Prince Albert and more",f:p=>has(p,"WHL")},
+  {id:"SJHL",t:"SJHL",d:"Melfort, La Ronge, Yorkton, Saskatoon, Weyburn",f:p=>has(p,"SJHL")},
+  {id:"JRA",t:"Other Junior A",d:"BCHL, USHL, NAHL, AJHL, SIJHL, NOJHL",f:p=>has(p,"JRA")},
+  {id:"JRB",t:"Junior B",d:"PJHL, VIJHL, KJHL, MMJHL, USPHL",f:p=>has(p,"JRB")},
+  {id:"NCAA",t:"NCAA (D1 and D3)",d:"North Dakota, Bemidji State, Providence, Alaska-Anchorage, Northland and more",f:p=>has(p,"NCAA1")||has(p,"NCAA3")},
+  {id:"USPORTS",t:"U Sports",d:"Brandon, Manitoba, Carleton",f:p=>has(p,"USPORTS")},
+  {id:"PRO",t:"Other pro",d:"AHL, ECHL, SPHL, Europe",f:p=>has(p,"PRO")},
+  {id:"NHL",t:"NHL",d:"Islanders, Wild, Maple Leafs, Penguins, Panthers, Ducks",f:p=>has(p,"NHL")}
+];
+const pool=P.filter(p=>p.teams.length&&(p.status==="verified"||p.status==="partial"));
+$("#leagueCards").innerHTML=leagueDefs.map(l=>`<button class="lcard" data-l="${l.id}"><div class="ln"><b>${l.t}</b><span>${pool.filter(l.f).length}</span></div><p>${l.d}</p></button>`).join("");
+function showLeague(id){
+  const l=leagueDefs.find(x=>x.id===id);const list=pool.filter(l.f).sort((a,b)=>a.last.localeCompare(b.last));
+  $("#beyondTitle").textContent=`${l.t} — ${list.length} former Rangers`;
+  const teamsFor=p=>p.teams.filter(t=>{const lv=lvlOf(t[1]);return id==="NCAA"?(t[1]==="NCAA1"||t[1]==="NCAA3"):lv===id||t[1]===id}).map(t=>t[0]).join("; ");
+  $("#beyondList").innerHTML=`<div class="tablewrap"><table><thead><tr><th>Player</th><th>Team(s) at this level</th><th>Also Kings?</th><th>All levels</th></tr></thead><tbody>${
+    list.map(p=>`<tr data-p="${esc(p.name)}"><td><b>${esc(p.name)}</b>${p.status==="partial"?' <span class="pill partial">partly confirmed</span>':""}</td><td>${esc(teamsFor(p))}</td><td>${p.playedKings?"Yes":"No"}</td><td>${levelTags(p)}</td></tr>`).join("")}</tbody></table></div>`;
+  $$("#beyondList tbody tr").forEach(r=>r.addEventListener("click",()=>openPlayer(r.dataset.p)));
+  $$("#leagueCards .lcard").forEach(c=>c.style.borderColor=c.dataset.l===id?"var(--accent)":"");
+}
+$$("#leagueCards .lcard").forEach(c=>c.addEventListener("click",()=>showLeague(c.dataset.l)));
+showLeague("MJHL");
+
+/* ---------- EXPLORER ---------- */
+const lvlOpts=[["Kings","Dauphin Kings"],["MJHL","Other MJHL teams"],["WHL","WHL"],["SJHL","SJHL"],["JRA","Other Junior A"],["JRB","Junior B"],["NCAA","NCAA (any)"],["USPORTS","U Sports"],["PRO","Other pro"],["NHL","NHL"]];
+$("#xLevel").innerHTML+=lvlOpts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("");
+function renderExplorer(){
+  const q=$("#xSearch").value.trim().toLowerCase(),lv=$("#xLevel").value,st=$("#xStatus").value,k=$("#xKings").value;
+  let rows=P.filter(p=>{
+    if(q&&!(p.name+" "+p.home+" "+p.teams.map(t=>t[0]).join(" ")+" "+p.kings).toLowerCase().includes(q))return false;
+    if(lv){if(lv==="NCAA"){if(!(has(p,"NCAA1")||has(p,"NCAA3")))return false}else if(!has(p,lv))return false}
+    if(st&&p.status!==st)return false;
+    if(k==="y"&&!p.playedKings)return false; if(k==="n"&&p.playedKings)return false;
+    return true;});
+  rows.sort(sorter("xTable"));
+  $("#xTable tbody").innerHTML=rows.map(p=>`<tr data-p="${esc(p.name)}"><td><b>${esc(p.name)}</b></td><td>${p.yob||""}</td><td>${esc(p.home)}</td><td>${esc(p.era)}</td><td>${levelTags(p)}</td><td><span class="pill ${p.status}">${statusLabel[p.status]}</span></td></tr>`).join("")||`<tr><td colspan="6" class="note">No players match these filters.</td></tr>`;
+  $("#xCount").textContent=`${rows.length} of ${P.length} players`;
+  $$("#xTable tbody tr[data-p]").forEach(r=>r.addEventListener("click",()=>openPlayer(r.dataset.p)));
+}
+["#xSearch","#xLevel","#xStatus","#xKings"].forEach(s=>$(s).addEventListener("input",renderExplorer));
+$("#xReset").addEventListener("click",()=>goExplorer({}));
+bindSort("xTable",renderExplorer);renderExplorer();
+
+/* ---------- CORRECTIONS ---------- */
+const corr=[
+ ["Start of records","1990–91","Correct for the Rangers name. The program began as the Parkland Stars, a founding league team in 1985–86, and sat out 1987–88 to 1989–90."],
+ ["Seasons","37","37 as the Rangers; 39 counting the Stars."],
+ ["Alumni page figures","50 alumni, 42 MJHL (84%)","Match the Past Players page, but the confirmed MJHL figure is 40 of 50 (80%)."],
+ ["10-year advancement rate","22.5%","Removed: no source found."],
+ ["Rangers U18 → Kings players",`6`,`${kingsPlayers.length} confirmed (minimum).`],
+ ["2022 champions with Rangers roots","1 (Jubenvill)","At least 4 regulars plus 2 affiliate players."],
+ ["Higher-level alumni","9 listed, unverified","All 9 confirmed. Hawryluk's Rangers link was confirmed through the league yearbook."],
+ ["Comparison table","Left out Swan Valley and Waywayseecappo","Both added. Swan Valley is the biggest MJHL destination after Dauphin."],
+ ["Formatting","Leftover image links and tracking tags","Removed."]
+];
+$("#corrBody").innerHTML=corr.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+
+/* ---------- SOURCES ---------- */
+const srcs=[
+ ["Parkland Rangers — Past Players","https://parklandrangers.ca/past-players"],
+ ["Elite Prospects — Parkland Rangers U18 AAA","https://www.eliteprospects.com/team/5427/parkland-rangers-u18-aaa"],
+ ["Manitoba U18 AAA Hockey League — 2023–24 Statistics & Record Book (PDF yearbook)",""],
+ ["Parkland Rangers — 2024–25 U13 AA camp letter (alumni list)",""],
+ ["MJHL — Kings crowned 2022 MJHL Champions","https://www.mjhlhockey.ca/kings-crowned-2022-mjhl-champions"],
+ ["Hockey Canada — 2022 Centennial Cup recap (semifinal)","https://www.hockeycanada.ca/en-ca/news/may-28-daily-recap-2022-centennial-cup"],
+ ["Hockey Canada — 2010 RBC Cup Dauphin Kings roster","https://video.hockeycanada.ca/National-Championships/Men/National-Junior-A/2010/Roster-hst-dauphin-kings"],
+ ["Dauphin Kings — signing announcements and player features","https://www.dauphinkings.com/"]
+];
+$("#srcList").innerHTML=srcs.map(s=>`<li>${s[1]?`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`:s[0]}</li>`).join("");
+
+/* initial tab from hash */
+{const h=location.hash.slice(1);if(h&&$("#tab-"+h))show(h)}
+</script>
+</body>
+</html>
